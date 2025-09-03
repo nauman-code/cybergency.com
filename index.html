@@ -8,6 +8,8 @@
   <style>
     body, html { margin: 0; height: 100%; overflow-x: hidden; }
     canvas { position: fixed; top: 0; left: 0; z-index: -1; }
+    .logo-grid img { max-height: 50px; filter: grayscale(100%) brightness(0.8); transition: all 0.3s; }
+    .logo-grid img:hover { filter: grayscale(0%) brightness(1.2); transform: scale(1.1); }
   </style>
 </head>
 <body class="text-gray-200 bg-black">
@@ -28,7 +30,7 @@
     function draw() {
       ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "#0f0"; // Matrix green
+      ctx.fillStyle = "#0f0";
       ctx.font = fontSize + "px monospace";
       drops.forEach((y, x) => {
         const text = letters.charAt(Math.floor(Math.random() * letters.length));
@@ -40,8 +42,46 @@
     setInterval(draw, 33);
   </script>
 
+  <!-- Particle Cursor Effect -->
+  <canvas id="particles"></canvas>
+  <script>
+    const pc = document.getElementById("particles");
+    const pctx = pc.getContext("2d");
+    pc.height = window.innerHeight;
+    pc.width = window.innerWidth;
+
+    const particles = [];
+    document.addEventListener("mousemove", e => {
+      for (let i = 0; i < 3; i++) {
+        particles.push({
+          x: e.clientX,
+          y: e.clientY,
+          size: Math.random() * 4 + 2,
+          life: 100
+        });
+      }
+    });
+
+    function animateParticles() {
+      pctx.clearRect(0, 0, pc.width, pc.height);
+      particles.forEach((p, i) => {
+        pctx.beginPath();
+        pctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        pctx.fillStyle = "rgba(0,255,0," + p.life / 100 + ")";
+        pctx.fill();
+        p.x += (Math.random() - 0.5) * 2;
+        p.y += (Math.random() - 0.5) * 2;
+        p.size *= 0.97;
+        p.life -= 2;
+        if (p.life <= 0) particles.splice(i, 1);
+      });
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+  </script>
+
   <!-- Hero Section -->
-  <section class="text-center py-32 px-6 bg-black bg-opacity-70">
+  <section class="text-center py-32 px-6 bg-black bg-opacity-70 relative z-10">
     <h1 class="text-5xl font-extrabold text-green-400 mb-6">Cybergency</h1>
     <p class="text-xl mb-8">Cybersecurity & Privacy Risk Consulting</p>
     <a href="https://outlook.office.com/bookwithme/user/b9c02df7678c4a07885ce3bea94e811b@gatech.edu?anonymous&ep=plink"
@@ -52,7 +92,7 @@
   </section>
 
   <!-- About / Resume Highlights -->
-  <section class="py-20 px-6 max-w-5xl mx-auto bg-black bg-opacity-70 rounded-xl my-10">
+  <section class="py-20 px-6 max-w-5xl mx-auto bg-black bg-opacity-70 rounded-xl my-10 relative z-10">
     <h2 class="text-3xl font-bold text-green-400 mb-6 text-center">Why Consult with Me?</h2>
     <p class="mb-4 text-lg text-gray-300 text-center">
       I bring over a decade of cybersecurity, risk management, and privacy experience across Fortune 500 companies.
@@ -71,8 +111,20 @@
     </ul>
   </section>
 
+  <!-- Company Logos -->
+  <section class="py-16 px-6 bg-black bg-opacity-70 rounded-xl max-w-5xl mx-auto text-center relative z-10">
+    <h2 class="text-2xl font-bold text-green-400 mb-8">Organizations I've Worked With</h2>
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-6 logo-grid justify-center items-center">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Verizon_2015_logo_-vector.svg" alt="Verizon">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Kimberly-Clark_logo.svg" alt="Kimberly-Clark">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/EY_logo_2019.svg" alt="EY">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Deloitte.svg" alt="Deloitte">
+    </div>
+  </section>
+
   <!-- Privacy Services -->
-  <section class="py-20 px-6 max-w-5xl mx-auto bg-black bg-opacity-70 rounded-xl my-10">
+  <section class="py-20 px-6 max-w-5xl mx-auto bg-black bg-opacity-70 rounded-xl my-10 relative z-10">
     <h2 class="text-3xl font-bold text-green-400 mb-6 text-center">Privacy Services</h2>
     <div class="grid md:grid-cols-3 gap-8 text-left">
       <div class="bg-gray-900 p-6 rounded-lg shadow hover:shadow-green-500">
@@ -91,7 +143,7 @@
   </section>
 
   <!-- Contact -->
-  <section class="py-20 px-6 text-center bg-black bg-opacity-70 rounded-xl my-10 max-w-4xl mx-auto">
+  <section class="py-20 px-6 text-center bg-black bg-opacity-70 rounded-xl my-10 max-w-4xl mx-auto relative z-10">
     <h2 class="text-3xl font-bold text-green-400 mb-6">Get in Touch</h2>
     <p class="mb-6 text-gray-300">Let’s discuss your cybersecurity and privacy challenges.</p>
     <a href="https://outlook.office.com/bookwithme/user/b9c02df7678c4a07885ce3bea94e811b@gatech.edu?anonymous&ep=plink"
@@ -102,7 +154,7 @@
   </section>
 
   <!-- Footer -->
-  <footer class="text-center py-6 text-gray-500">
+  <footer class="text-center py-6 text-gray-500 relative z-10">
     <p>&copy; <span id="year"></span> Cybergency. All rights reserved.</p>
   </footer>
 
