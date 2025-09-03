@@ -1,94 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cybergency - Cybersecurity Services</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .hero-bg {
-            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
-            background-size: cover;
-            background-position: center;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cybergency - Cybersecurity & Privacy Services</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body, html { margin: 0; height: 100%; overflow-x: hidden; }
+    canvas { position: fixed; top: 0; left: 0; z-index: -1; }
+  </style>
 </head>
-<body class="font-sans text-gray-800">
-    <!-- Header -->
-    <header class="bg-gray-900 text-white">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="text-2xl font-bold">Cybergency</div>
-            <ul class="flex space-x-6">
-                <li><a href="#home" class="hover:text-blue-400">Home</a></li>
-                <li><a href="#why-us" class="hover:text-blue-400">Why Us</a></li>
-                <li><a href="#contact" class="hover:text-blue-400">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+<body class="text-gray-200 bg-black">
 
-    <!-- Hero Section -->
-    <section id="home" class="hero-bg text-white py-20">
-        <div class="container mx-auto px-6 text-center">
-            <h1 class="text-4xl md:text-6xl font-bold mb-4">Welcome to Cybergency</h1>
-            <p class="text-xl md:text-2xl mb-8">Your trusted cybersecurity partner.</p>
-            <a href="#contact" class="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition">Schedule a Consultation</a>
-        </div>
-    </section>
+  <!-- Matrix Background -->
+  <canvas id="matrix"></canvas>
+  <script>
+    const canvas = document.getElementById("matrix");
+    const ctx = canvas.getContext("2d");
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
 
-    <!-- Why Cybergency Section -->
-    <section id="why-us" class="py-16 bg-gray-100">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Simplified, Strategic, Secure</h2>
-            <p class="text-xl text-center mb-8">Lantego Secures Organizations</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold mb-4">Proven Methodologies</h3>
-                    <p>Industry-leading methodologies PEER™, RIIOT™, LOCKS™.</p>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold mb-4">Extensive Experience</h3>
-                    <p>Over 35 years of hands-on policy, assessment, and training experience.</p>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold mb-4">Trusted by Many</h3>
-                    <p>Trusted by state/local governments, utilities, universities, healthcare, and financial industries.</p>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold mb-4">Industry Authority</h3>
-                    <p>Author of the industry’s most widely used cybersecurity books on assessment and policy.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    const letters = "01";
+    const fontSize = 14;
+    const columns = canvas.width / fontSize;
+    const drops = Array.from({ length: columns }).fill(1);
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-16">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold mb-8">Get in Touch</h2>
-            <p class="text-lg mb-8">Ready to secure your organization? Schedule a consultation with our experts.</p>
-            <a href="https://outlook.office.com/bookwithme/user/b9c02df7678c4a07885ce3bea94e811b@gatech.edu?anonymous&ep=plink" class="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition">Book a Consultation</a>
-        </div>
-    </section>
+    function draw() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#0f0"; // Matrix green
+      ctx.font = fontSize + "px monospace";
+      drops.forEach((y, x) => {
+        const text = letters.charAt(Math.floor(Math.random() * letters.length));
+        ctx.fillText(text, x * fontSize, y * fontSize);
+        if (y * fontSize > canvas.height && Math.random() > 0.975) drops[x] = 0;
+        drops[x]++;
+      });
+    }
+    setInterval(draw, 33);
+  </script>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-6">
-        <div class="container mx-auto px-6 text-center">
-            <p>&copy; 2025 Cybergency. All rights reserved.</p>
-        </div>
-    </footer>
+  <!-- Hero Section -->
+  <section class="text-center py-32 px-6 bg-black bg-opacity-70">
+    <h1 class="text-5xl font-extrabold text-green-400 mb-6">Cybergency</h1>
+    <p class="text-xl mb-8">Cybersecurity & Privacy Risk Consulting</p>
+    <a href="https://outlook.office.com/bookwithme/user/b9c02df7678c4a07885ce3bea94e811b@gatech.edu?anonymous&ep=plink"
+       target="_blank"
+       class="bg-green-500 text-black px-6 py-3 rounded-lg font-semibold shadow hover:bg-green-400 transition">
+      Schedule a Consultation
+    </a>
+  </section>
+
+  <!-- About / Resume Highlights -->
+  <section class="py-20 px-6 max-w-5xl mx-auto bg-black bg-opacity-70 rounded-xl my-10">
+    <h2 class="text-3xl font-bold text-green-400 mb-6 text-center">Why Consult with Me?</h2>
+    <p class="mb-4 text-lg text-gray-300 text-center">
+      I bring over a decade of cybersecurity, risk management, and privacy experience across Fortune 500 companies.
+      Having led teams at Verizon, Amazon Web Services, Kimberly-Clark, EY, and Deloitte,
+      I specialize in securing enterprise systems and enabling compliance in highly regulated environments.
+    </p>
+    <ul class="grid md:grid-cols-2 gap-6 text-left text-gray-300 mt-8">
+      <li class="bg-gray-900 p-6 rounded-lg shadow hover:shadow-green-500">
+        <h3 class="text-xl font-semibold text-green-400 mb-2">Expertise</h3>
+        <p>Risk Assessments, Incident Response, Cloud Security (AWS, O365), GRC Frameworks, Data Privacy Programs.</p>
+      </li>
+      <li class="bg-gray-900 p-6 rounded-lg shadow hover:shadow-green-500">
+        <h3 class="text-xl font-semibold text-green-400 mb-2">Certifications</h3>
+        <p>CISSP, CISM, CCSP, CISA, CRISC, FIP, CIPP/US, CIPM, CIPT, CDPSE, FAIR, OneTrust Privacy Pro.</p>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Privacy Services -->
+  <section class="py-20 px-6 max-w-5xl mx-auto bg-black bg-opacity-70 rounded-xl my-10">
+    <h2 class="text-3xl font-bold text-green-400 mb-6 text-center">Privacy Services</h2>
+    <div class="grid md:grid-cols-3 gap-8 text-left">
+      <div class="bg-gray-900 p-6 rounded-lg shadow hover:shadow-green-500">
+        <h3 class="text-xl font-semibold text-green-400 mb-3">Privacy Program Design</h3>
+        <p>Build GDPR, CCPA, and HIPAA-aligned privacy programs that scale with your organization.</p>
+      </div>
+      <div class="bg-gray-900 p-6 rounded-lg shadow hover:shadow-green-500">
+        <h3 class="text-xl font-semibold text-green-400 mb-3">Compliance Audits</h3>
+        <p>Prepare for SOC 2, FedRAMP, and global regulatory audits with expert guidance.</p>
+      </div>
+      <div class="bg-gray-900 p-6 rounded-lg shadow hover:shadow-green-500">
+        <h3 class="text-xl font-semibold text-green-400 mb-3">Data Breach Response</h3>
+        <p>Rapid response strategies, notifications, and remediation plans to minimize impact.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="py-20 px-6 text-center bg-black bg-opacity-70 rounded-xl my-10 max-w-4xl mx-auto">
+    <h2 class="text-3xl font-bold text-green-400 mb-6">Get in Touch</h2>
+    <p class="mb-6 text-gray-300">Let’s discuss your cybersecurity and privacy challenges.</p>
+    <a href="https://outlook.office.com/bookwithme/user/b9c02df7678c4a07885ce3bea94e811b@gatech.edu?anonymous&ep=plink"
+       target="_blank"
+       class="bg-green-500 text-black px-6 py-3 rounded-lg font-semibold shadow hover:bg-green-400 transition">
+      Book a Consultation
+    </a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center py-6 text-gray-500">
+    <p>&copy; <span id="year"></span> Cybergency. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cybergency - Cybersecurity Services</title>
-</head>
-<body>
-    <h1>Welcome to Cybergency</h1>
-    <p>Your trusted cybersecurity partner.</p>
-</body>
-</html> -->
-
