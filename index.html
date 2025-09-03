@@ -3,16 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cybergency - Cybersecurity & Privacy Services</title>
+  <title>Cybergency - Cybersecurity & Privacy Solutions</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    body, html { margin: 0; height: 100%; overflow-x: hidden; }
-    canvas { position: fixed; top: 0; left: 0; z-index: -1; }
-    .logo-grid img { max-height: 50px; filter: grayscale(100%) brightness(0.8); transition: all 0.3s; }
-    .logo-grid img:hover { filter: grayscale(0%) brightness(1.2); transform: scale(1.1); }
+    body, html { margin: 0; padding: 0; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+    canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.3; }
+    .logo-grid img { max-height: 40px; filter: grayscale(100%) opacity(0.7); transition: all 0.3s ease; }
+    .logo-grid img:hover { filter: grayscale(0%) opacity(1); transform: scale(1.05); }
+    .section-container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+    .cta-button { transition: all 0.3s ease; }
+    .cta-button:hover { transform: translateY(-2px); }
+    .card { transition: all 0.3s ease; }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 255, 0, 0.2); }
   </style>
 </head>
-<body class="text-gray-200 bg-black">
+<body class="text-gray-100 bg-gray-900">
 
   <!-- Matrix Background -->
   <canvas id="matrix"></canvas>
@@ -23,139 +29,138 @@
     canvas.width = window.innerWidth;
 
     const letters = "01";
-    const fontSize = 14;
+    const fontSize = 12;
     const columns = canvas.width / fontSize;
     const drops = Array.from({ length: columns }).fill(1);
 
     function draw() {
-      ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "#0f0";
+      ctx.fillStyle = "#22c55e";
       ctx.font = fontSize + "px monospace";
       drops.forEach((y, x) => {
         const text = letters.charAt(Math.floor(Math.random() * letters.length));
         ctx.fillText(text, x * fontSize, y * fontSize);
-        if (y * fontSize > canvas.height && Math.random() > 0.975) drops[x] = 0;
+        if (y * fontSize > canvas.height && Math.random() > 0.98) drops[x] = 0;
         drops[x]++;
       });
     }
-    setInterval(draw, 33);
+    setInterval(draw, 40);
   </script>
 
-  <!-- Particle Cursor Effect -->
-  <canvas id="particles"></canvas>
-  <script>
-    const pc = document.getElementById("particles");
-    const pctx = pc.getContext("2d");
-    pc.height = window.innerHeight;
-    pc.width = window.innerWidth;
-
-    const particles = [];
-    document.addEventListener("mousemove", e => {
-      for (let i = 0; i < 3; i++) {
-        particles.push({
-          x: e.clientX,
-          y: e.clientY,
-          size: Math.random() * 4 + 2,
-          life: 100
-        });
-      }
-    });
-
-    function animateParticles() {
-      pctx.clearRect(0, 0, pc.width, pc.height);
-      particles.forEach((p, i) => {
-        pctx.beginPath();
-        pctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        pctx.fillStyle = "rgba(0,255,0," + p.life / 100 + ")";
-        pctx.fill();
-        p.x += (Math.random() - 0.5) * 2;
-        p.y += (Math.random() - 0.5) * 2;
-        p.size *= 0.97;
-        p.life -= 2;
-        if (p.life <= 0) particles.splice(i, 1);
-      });
-      requestAnimationFrame(animateParticles);
-    }
-    animateParticles();
-  </script>
+  <!-- Header with Logo -->
+  <header class="bg-gray-800 bg-opacity-80 sticky top-0 z-20">
+    <div class="section-container flex justify-between items-center py-4">
+      <div class="flex items-center">
+        <svg width="40" height="40" viewBox="0 0 100 100" class="mr-3">
+          <circle cx="50" cy="50" r="45" fill="none" stroke="#22c55e" stroke-width="8"/>
+          <path d="M50 10 L90 50 L50 90 L10 50 Z" fill="none" stroke="#22c55e" stroke-width="6"/>
+          <circle cx="50" cy="50" r="20" fill="#22c55e"/>
+        </svg>
+        <span class="text-2xl font-bold text-green-400">Cybergency</span>
+      </div>
+      <nav class="hidden md:flex space-x-6">
+        <a href="#why" class="text-gray-300 hover:text-green-400 transition">Why Us</a>
+        <a href="#services" class="text-gray-300 hover:text-green-400 transition">Services</a>
+        <a href="#contact" class="text-gray-300 hover:text-green-400 transition">Contact</a>
+      </nav>
+    </div>
+  </header>
 
   <!-- Hero Section -->
-  <section class="text-center py-32 px-6 bg-black bg-opacity-70 relative z-10">
-    <h1 class="text-5xl font-extrabold text-green-400 mb-6">Cybergency</h1>
-    <p class="text-xl mb-8">Cybersecurity & Privacy Risk Consulting</p>
-    <a href="https://outlook.office.com/bookwithme/user/b9c02df7678c4a07885ce3bea94e811b@gatech.edu?anonymous&ep=plink"
-       target="_blank"
-       class="bg-green-500 text-black px-6 py-3 rounded-lg font-semibold shadow hover:bg-green-400 transition">
-      Schedule a Consultation
-    </a>
+  <section class="text-center py-24 px-6 bg-gray-900 relative z-10">
+    <div class="section-container">
+      <h1 class="text-5xl md:text-6xl font-bold text-green-400 mb-6">Secure Your Future with Cybergency</h1>
+      <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">Your trusted partner for cybersecurity and privacy risk consulting.</p>
+      <a href="https://outlook.office.com/bookwithme/user/b9c02df7678c4a07885ce3bea94e811b@gatech.edu?anonymous&ep=plink"
+         target="_blank"
+         class="cta-button inline-block bg-green-500 text-gray-900 px-8 py-3 rounded-lg font-semibold shadow-lg hover:bg-green-400">
+        Schedule a Consultation
+      </a>
+    </div>
   </section>
 
-  <!-- About / Resume Highlights -->
-  <section class="py-20 px-6 max-w-5xl mx-auto bg-black bg-opacity-70 rounded-xl my-10 relative z-10">
-    <h2 class="text-3xl font-bold text-green-400 mb-6 text-center">Why Consult with Me?</h2>
-    <p class="mb-4 text-lg text-gray-300 text-center">
-      I bring over a decade of cybersecurity, risk management, and privacy experience across Fortune 500 companies.
-      Having led teams at Verizon, Amazon Web Services, Kimberly-Clark, EY, and Deloitte,
-      I specialize in securing enterprise systems and enabling compliance in highly regulated environments.
-    </p>
-    <ul class="grid md:grid-cols-2 gap-6 text-left text-gray-300 mt-8">
-      <li class="bg-gray-900 p-6 rounded-lg shadow hover:shadow-green-500">
-        <h3 class="text-xl font-semibold text-green-400 mb-2">Expertise</h3>
-        <p>Risk Assessments, Incident Response, Cloud Security (AWS, O365), GRC Frameworks, Data Privacy Programs.</p>
-      </li>
-      <li class="bg-gray-900 p-6 rounded-lg shadow hover:shadow-green-500">
-        <h3 class="text-xl font-semibold text-green-400 mb-2">Certifications</h3>
-        <p>CISSP, CISM, CCSP, CISA, CRISC, FIP, CIPP/US, CIPM, CIPT, CDPSE, FAIR, OneTrust Privacy Pro.</p>
-      </li>
-    </ul>
+  <!-- Why Cybergency -->
+  <section id="why" class="py-20 px-6 bg-gray-800 bg-opacity-80">
+    <div class="section-container">
+      <h2 class="text-3xl font-bold text-green-400 mb-8 text-center">Why Choose Cybergency</h2>
+      <p class="text-lg text-gray-300 mb-8 text-center max-w-3xl mx-auto">
+        With over 10+ years of hands-on experience, we deliver industry-leading cybersecurity trainings and solutions.
+      </p>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="card bg-gray-900 p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl font-semibold text-green-400 mb-3">Proven Expertise</h3>
+          <p>Trusted by state/local governments, utilities, universities, healthcare, and financial industries.</p>
+        </div>
+        <div class="card bg-gray-900 p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl font-semibold text-green-400 mb-3">Industry Leadership</h3>
+          <p>Author of the most widely used cybersecurity books on assessment and policy.</p>
+        </div>
+        <div class="card bg-gray-900 p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl font-semibold text-green-400 mb-3">Comprehensive Solutions</h3>
+          <p>Specialized in risk assessments, incident response, cloud security, GRC, and data privacy.</p>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- Company Logos -->
-  <section class="py-16 px-6 bg-black bg-opacity-70 rounded-xl max-w-5xl mx-auto text-center relative z-10">
-    <h2 class="text-2xl font-bold text-green-400 mb-8">Organizations I've Worked With</h2>
-    <div class="grid grid-cols-2 md:grid-cols-5 gap-6 logo-grid justify-center items-center">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Verizon_2015_logo_-vector.svg" alt="Verizon">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Kimberly-Clark_logo.svg" alt="Kimberly-Clark">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/EY_logo_2019.svg" alt="EY">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Deloitte.svg" alt="Deloitte">
+  <!-- Trusted By -->
+  <section class="py-16 px-6 bg-gray-900">
+    <div class="section-container text-center">
+      <h2 class="text-2xl font-bold text-green-400 mb-8">Trusted By Leading Organizations</h2>
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-6 logo-grid justify-center items-center">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Verizon_2015_logo_-vector.svg" alt="Verizon">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Kimberly-Clark_logo.svg" alt="Kimberly-Clark">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/EY_logo_2019.svg" alt="EY">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Deloitte.svg" alt="Deloitte">
+      </div>
     </div>
   </section>
 
   <!-- Privacy Services -->
-  <section class="py-20 px-6 max-w-5xl mx-auto bg-black bg-opacity-70 rounded-xl my-10 relative z-10">
-    <h2 class="text-3xl font-bold text-green-400 mb-6 text-center">Privacy Services</h2>
-    <div class="grid md:grid-cols-3 gap-8 text-left">
-      <div class="bg-gray-900 p-6 rounded-lg shadow hover:shadow-green-500">
-        <h3 class="text-xl font-semibold text-green-400 mb-3">Privacy Program Design</h3>
-        <p>Build GDPR, CCPA, and HIPAA-aligned privacy programs that scale with your organization.</p>
-      </div>
-      <div class="bg-gray-900 p-6 rounded-lg shadow hover:shadow-green-500">
-        <h3 class="text-xl font-semibold text-green-400 mb-3">Compliance Audits</h3>
-        <p>Prepare for SOC 2, FedRAMP, and global regulatory audits with expert guidance.</p>
-      </div>
-      <div class="bg-gray-900 p-6 rounded-lg shadow hover:shadow-green-500">
-        <h3 class="text-xl font-semibold text-green-400 mb-3">Data Breach Response</h3>
-        <p>Rapid response strategies, notifications, and remediation plans to minimize impact.</p>
+  <section id="services" class="py-20 px-6 bg-gray-800 bg-opacity-80">
+    <div class="section-container">
+      <h2 class="text-3xl font-bold text-green-400 mb-8 text-center">Our Services</h2>
+      <div class="grid md:grid-cols-4 gap-6">
+        <div class="card bg-gray-900 p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl font-semibold text-green-400 mb-3">Privacy Program Design</h3>
+          <p>Develop GDPR, CCPA, and HIPAA-compliant privacy programs tailored to your needs.</p>
+        </div>
+        <div class="card bg-gray-900 p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl font-semibold text-green-400 mb-3">Compliance Audits</h3>
+          <p>Expert guidance for SOC 2, FedRAMP, and global regulatory compliance.</p>
+        </div>
+        <div class="card bg-gray-900 p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl font-semibold text-green-400 mb-3">Data Breach Response</h3>
+          <p>Rapid response, notifications, and remediation to minimize breach impact.</p>
+        </div>
+        <div class="card bg-gray-900 p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl font-semibold text-green-400 mb-3">Certification Training</h3>
+          <p>Comprehensive training programs for CISSP, CISM, CISA, and other cybersecurity certifications.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Contact -->
-  <section class="py-20 px-6 text-center bg-black bg-opacity-70 rounded-xl my-10 max-w-4xl mx-auto relative z-10">
-    <h2 class="text-3xl font-bold text-green-400 mb-6">Get in Touch</h2>
-    <p class="mb-6 text-gray-300">Let’s discuss your cybersecurity and privacy challenges.</p>
-    <a href="https://outlook.office.com/bookwithme/user/b9c02df7678c4a07885ce3bea94e811b@gatech.edu?anonymous&ep=plink"
-       target="_blank"
-       class="bg-green-500 text-black px-6 py-3 rounded-lg font-semibold shadow hover:bg-green-400 transition">
-      Book a Consultation
-    </a>
+  <section id="contact" class="py-20 px-6 bg-gray-900 text-center">
+    <div class="section-container">
+      <h2 class="text-3xl font-bold text-green-400 mb-6">Get Started Today</h2>
+      <p class="text-lg text-gray-300 mb-8 max-w-xl mx-auto">Partner with us to secure your organization’s future. Schedule a consultation to discuss your cybersecurity needs.</p>
+      <a href="https://outlook.office.com/bookwithme/user/b9c02df7678c4a07885ce3bea94e811b@gatech.edu?anonymous&ep=plink"
+         target="_blank"
+         class="cta-button inline-block bg-green-500 text-gray-900 px-8 py-3 rounded-lg font-semibold shadow-lg hover:bg-green-400">
+        Book a Consultation
+      </a>
+    </div>
   </section>
 
   <!-- Footer -->
-  <footer class="text-center py-6 text-gray-500 relative z-10">
-    <p>&copy; <span id="year"></span> Cybergency. All rights reserved.</p>
+  <footer class="text-center py-8 text-gray-500 bg-gray-800 bg-opacity-80">
+    <div class="section-container">
+      <p>&copy; <span id="year"></span> Cybergency. All rights reserved.</p>
+    </div>
   </footer>
 
   <script>
